@@ -14,5 +14,6 @@ def test_model_accuracy():
         raise FileNotFoundError(f"No model file found at {model_path}")
     
     model = MNISTModel()
-    model.load_state_dict(torch.load(model_path))
-    # Add accuracy test
+    model.load_state_dict(torch.load(model_path, weights_only=True))
+    accuracy = evaluate_model(model)
+    assert accuracy >= 0.8, f"Model accuracy {accuracy} is below 0.8"

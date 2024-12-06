@@ -49,18 +49,12 @@ def train():
     for batch_idx, (inputs, targets) in enumerate(trainloader):
         inputs, targets = inputs.to(device), targets.to(device)
         
-        # Zero the parameter gradients
         optimizer.zero_grad()
-
-        # Forward pass
         outputs = model(inputs)
         loss = criterion(outputs, targets)
-
-        # Backward pass and optimize
         loss.backward()
         optimizer.step()
 
-        # Print statistics
         running_loss += loss.item()
         _, predicted = outputs.max(1)
         total += targets.size(0)
@@ -75,15 +69,10 @@ def train():
     accuracy = 100. * correct / total
     print(f'\nFinal Training Accuracy: {accuracy:.2f}%')
 
-    # Save model
+    # Save model state only
     current_dir = os.path.dirname(os.path.abspath(__file__))
     save_path = os.path.join(current_dir, 'model_mnist_latest.pth')
-    torch.save({
-        'model_state_dict': model.state_dict(),
-        'optimizer_state_dict': optimizer.state_dict(),
-        'accuracy': accuracy,
-        'loss': running_loss / len(trainloader),
-    }, save_path)
+    torch.save(model.state_dict(), save_path)
     print(f"Model saved to: {save_path}")
 
     return model, accuracy
