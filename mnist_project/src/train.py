@@ -42,6 +42,7 @@ def train_model():
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     save_path = f'model_mnist_{timestamp}.pth'
     torch.save(model.state_dict(), save_path)
+    torch.save(model.state_dict(), 'model_mnist_latest.pth')
     return save_path
 
 if __name__ == '__main__':
