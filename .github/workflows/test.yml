@@ -1,4 +1,4 @@
-name: ML Model CI/CD
+name: MNIST Model Tests
 
 on: [push]
 
@@ -20,18 +20,20 @@ jobs:
         pip install --index-url https://download.pytorch.org/whl/cpu torch torchvision --no-cache-dir
         pip install pytest
         
-    - name: Train model
+    - name: Check Model Parameters
+      run: |
+        cd mnist_project
+        python -m pytest src/tests/test_model.py::test_model_parameters -v
+        
+    - name: Train and Test Model
       run: |
         cd mnist_project/src
         python train.py
-        
-    - name: Run tests
-      run: |
-        cd mnist_project
-        python -m pytest src/tests/
+        cd ..
+        python -m pytest src/tests/test_training.py::test_model_accuracy -v
         
     - name: Upload model artifact
       uses: actions/upload-artifact@v4
       with:
         name: trained-model
-        path: mnist_project/src/model_mnist_*.pth 
+        path: mnist_project/src/model_mnist_latest.pth

@@ -1,14 +1,26 @@
-# ERA-V3 MNIST Project
+# MNIST Classification Project
 
-This project implements a CNN model for MNIST digit classification with CI/CD pipeline.
+A PyTorch implementation of MNIST digit classification that achieves >95% accuracy in one epoch with less than 25,000 parameters.
 
-## Project Structure
-- `mnist_project/`: Contains the main project code
-  - `src/`: Source code directory
-    - `model.py`: CNN model architecture
-    - `train.py`: Training script
-    - `utils.py`: Utility functions
-    - `tests/`: Test files
+## Model Architecture
+- Input Layer: 28x28x1
+- Conv1: 8 filters with BatchNorm and ReLU
+- Conv2: 16 filters with BatchNorm and ReLU
+- Conv3: 20 filters with BatchNorm and ReLU
+- MaxPooling layers
+- Fully Connected Layer: 10 outputs
+- Total Parameters: <25,000
 
-## Local Setup
-1. Clone the repository: 
+## Key Features
+- Achieves >95% accuracy in 1 epoch
+- Lightweight architecture (<25K parameters)
+- Uses BatchNormalization for faster convergence
+- Implements dropout for regularization
+
+## GitHub Actions Tests
+The CI/CD pipeline automatically verifies:
+1. Model has less than 25,000 parameters
+2. Achieves accuracy greater than 95% in one epoch
+
+## Setup and Training
+1. Install dependencies:

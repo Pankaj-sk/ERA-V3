@@ -12,4 +12,5 @@ def test_model_architecture():
 def test_model_parameters():
     model = MNISTModel()
     total_params = sum(p.numel() for p in model.parameters())
-    assert total_params < 100000, f"Model has {total_params} parameters, should be < 100000" 
+    print(f"Total parameters: {total_params}")
+    assert total_params < 25000, f"Model has {total_params} parameters, should be < 25000" 
